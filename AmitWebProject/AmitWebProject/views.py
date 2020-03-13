@@ -103,7 +103,7 @@ def data():
         message='My Data'
     )
 
-df = pd.read_csv("C:\\Users\\royma\\source\\repos\\AmitWebProject\\AmitWebProject\\AmitWebProject\\static\\data\\dataset - apps on google play.csv")
+df = pd.read_csv("C:\\Users\\User\Source\\Repos\\AmitWebProject\\AmitWebProject\\AmitWebProject\\static\\Data\\dataset - apps on google play.csv")
 @app.route  ('/dataSet')
 def dataSet():
     """Renders the about page."""
