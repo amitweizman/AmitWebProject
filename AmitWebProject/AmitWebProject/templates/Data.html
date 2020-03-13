@@ -1,0 +1,41 @@
+﻿{% extends "layout.html" %}
+{% block content %}
+<div dir="ltr">
+    <div class="jumbotron">
+        <h1>About My Data</h1>
+    </div>
+
+    <div>
+        <h3>Most succesful apps on Google Play</h3>
+        <p>
+            We all use apps on a daily basis, and I personley very interested in them, so I decided to do this project about the most succesful apps
+            on Google Play, the Android version of App Store.
+        </p>
+        <p>
+            My data base contains lots of useful information about these apps, such as their category, their rating, type, price and more.
+            The subject is so interesting for me because I want to learn some day how to make apps and I want to try and learn what makes them succesful
+            and help other app developers.
+        </p>
+        <img src="https://i2.wp.com/www.mobileworldlive.com/wp-content/uploads/2019/05/social-media-apps-2-shutterstock-650-e1576686057538.jpg?fit=650%2C399&ssl=1" style="width:300px; height:200px">
+        <img src="https://www.rankmyapp.com/wp-content/uploads/2019/04/new-google-play-store-mobile.jpg" style="width:300px; height:200px">
+        <img src="https://thumbs.dreamstime.com/b/google-play-store-icon-google-play-store-icons-white-background-editable-vector-illustration-132994318.jpg" style="width:300px; height:200px">
+    </div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td> Data Base name </td>
+                <td> What the data base is about</td>
+                <td> Link</td>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>Apps On Google Play</td>
+                <td>The data base is about the most succesful apps on Google Play</td>
+                <td> <a href="{{ url_for('dataSet') }}">Link to the apps data base</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        {% endblock %}

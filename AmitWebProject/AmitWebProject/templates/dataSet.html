@@ -1,0 +1,143 @@
+﻿{% extends "layout.html" %}
+{% block content %}
+<div dir="ltr">
+    <div class="Jumbotron">
+        <h1> Warships Data Base</h1>
+        <p>The Data Base includes warships from WWI to these days</p>
+    </div>
+
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    App 
+                </th>
+                <th> Name of the app </th>
+            </tr>
+
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Category
+                </td>
+                <td> Which category is the app belongs to</td>
+            </tr>
+
+            <tr>
+                <td>
+                    Rating
+                </td>
+                <td> The app review from 1 - 5 stars </td>
+
+            </tr>
+            <tr>
+                <td>
+                    Reviews
+                </td>
+                <td> The app revie that is written in words</td>
+            </tr>
+            <tr>
+                <td>
+                    Size
+                </td>
+                <td> How much space is the app require </td>
+            </tr>
+            <tr>
+                <td>
+                    Installs
+                </td>
+                <td> How many people installed the app</td>
+            </tr>
+            <tr>
+                <td>
+                    Price
+                </td>
+                <td> The app price in usd ($)</td>
+            </tr>
+            <tr>
+                <td>
+                    Content Rating
+                </td>
+                <td> What age is the app content suitable for</td>
+            </tr>
+            <tr>
+                <td>
+                    Genres
+                </td>
+                <td> The app genre</td>
+            </tr>
+            <tr>
+                <td>
+                    Last Updated
+                </td>
+                <td> When was the last update for the app</td>
+            </tr>
+            <tr>
+                <td>
+                    Current Ver
+                </td>
+                <td> The app current version</td>
+            </tr>
+            <tr>
+                <td>
+                    Android Ver
+                </td>
+                <td> The version that is required from the Android</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .collapsible {
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+            .active, .collapsible:hover {
+                background-color: darkred;
+            }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: red;
+        }
+    </style>
+</head>
+<button type="button" class="collapsible">DataBase</button>
+<div class="content">
+    <p> {{ data | safe}}</p>
+</div>
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+{% endblock %}

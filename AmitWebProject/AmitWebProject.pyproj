@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>9efa7ab5-4c9a-495a-975e-ad2a0ed549d7</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <ProjectTypeGuids>{789894c7-04a9-4a11-a6b5-3f4435165112};{1b580a1a-fdb3-4b32-83e1-6407eb2722e6};{349c5851-65df-11da-9384-00065b846f21};{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <StartupFile>runserver.py</StartupFile>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <LaunchProvider>Web launcher</LaunchProvider>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <OutputPath>.</OutputPath>
+    <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
+    <Name>AmitWebProject</Name>
+    <RootNamespace>AmitWebProject</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="AmitWebProject\Models\QueryFormStracture.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AmitWebProject\Models\LocalDatabaseRoutines.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="runserver.py" />
+    <Compile Include="AmitWebProject\__init__.py" />
+    <Compile Include="AmitWebProject\views.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AmitWebProject\" />
+    <Folder Include="AmitWebProject\Models\" />
+    <Folder Include="AmitWebProject\static\" />
+    <Folder Include="AmitWebProject\static\content\" />
+    <Folder Include="AmitWebProject\static\fonts\" />
+    <Folder Include="AmitWebProject\static\data\" />
+    <Folder Include="AmitWebProject\static\scripts\" />
+    <Folder Include="AmitWebProject\templates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AmitWebProject\static\data\dataset - apps on google play.csv" />
+    <Content Include="AmitWebProject\static\data\users.csv" />
+    <Content Include="AmitWebProject\templates\login.html" />
+    <Content Include="AmitWebProject\templates\register.html" />
+    <Content Include="AmitWebProject\templates\data.html" />
+    <Content Include="AmitWebProject\templates\dataSet.html" />
+    <Content Include="requirements.txt" />
+    <Content Include="AmitWebProject\static\content\bootstrap.css" />
+    <Content Include="AmitWebProject\static\content\bootstrap.min.css" />
+    <Content Include="AmitWebProject\static\content\site.css" />
+    <Content Include="AmitWebProject\static\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="AmitWebProject\static\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="AmitWebProject\static\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="AmitWebProject\static\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="AmitWebProject\static\scripts\bootstrap.js" />
+    <Content Include="AmitWebProject\static\scripts\bootstrap.min.js" />
+    <Content Include="AmitWebProject\static\scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="AmitWebProject\static\scripts\jquery-1.10.2.js" />
+    <Content Include="AmitWebProject\static\scripts\jquery-1.10.2.min.js" />
+    <Content Include="AmitWebProject\static\scripts\jquery-1.10.2.min.map" />
+    <Content Include="AmitWebProject\static\scripts\jquery.validate-vsdoc.js" />
+    <Content Include="AmitWebProject\static\scripts\jquery.validate.js" />
+    <Content Include="AmitWebProject\static\scripts\jquery.validate.min.js" />
+    <Content Include="AmitWebProject\static\scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="AmitWebProject\static\scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="AmitWebProject\static\scripts\modernizr-2.6.2.js" />
+    <Content Include="AmitWebProject\static\scripts\respond.js" />
+    <Content Include="AmitWebProject\static\scripts\respond.min.js" />
+    <Content Include="AmitWebProject\static\scripts\_references.js" />
+    <Content Include="AmitWebProject\templates\about.html" />
+    <Content Include="AmitWebProject\templates\contact.html" />
+    <Content Include="AmitWebProject\templates\index.html" />
+    <Content Include="AmitWebProject\templates\layout.html" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
+  <!-- Specify pre- and post-build commands in the BeforeBuild and 
+       AfterBuild targets below. -->
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <AutoAssignPort>True</AutoAssignPort>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>
