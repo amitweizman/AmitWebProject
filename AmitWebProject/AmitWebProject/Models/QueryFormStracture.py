@@ -56,9 +56,9 @@ class LoginFormStructure(FlaskForm):
 ##   the 'submit' button - the button the user will press to have the 
 ##                         form be "posted" (sent to the server for process)
 class UserRegistrationFormStructure(FlaskForm):
-    FirstName  = StringField('First name:  ' , validators = [DataRequired()])
-    LastName   = StringField('Last name:  ' , validators = [DataRequired()])
-    PhoneNum   = StringField('Phone number:  ' , validators = [DataRequired()])
+    FirstName  = StringField('First name:  ' , [validators.length (min=2)])
+    LastName   = StringField('Last name:  ' , [validators.length (min=2)])
+    PhoneNum   = StringField('Phone number:  ' , [validators.length (min=10, max=10)])
     EmailAddr  = StringField('E-Mail:  ' , validators = [DataRequired()])
     username   = StringField('User name:  ' , validators = [DataRequired()])
     password   = PasswordField('Pass word:  ' , validators = [DataRequired()])
