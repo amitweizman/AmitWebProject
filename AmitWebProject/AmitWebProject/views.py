@@ -215,7 +215,7 @@ def query():
     #    print(president)
     #    print(start_date)
     #    print(end_date)
-    #    print(type(start_date))
+    #    print(type(start_date)) 
     #    x = str(start_date)
     #    print(x)
     #    chart = plot_case_1(presidents_dict[president] , start_date , end_date , kind)
