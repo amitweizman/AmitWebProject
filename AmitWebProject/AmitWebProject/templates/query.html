@@ -1,0 +1,21 @@
+﻿{% extends "layout.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-2">
+        <form method="post">
+            {{ form1.csrf_token }}
+            {{ wtf.form_field(form1.genres)}}
+            {{ wtf.form_field(form1.types)}}
+            <input class="btn btn-primary" type="submit" value="הצג">
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        <img src="{{ chart }} " alt="chart" />
+    </div>
+</div>
+    {% endblock %}
+

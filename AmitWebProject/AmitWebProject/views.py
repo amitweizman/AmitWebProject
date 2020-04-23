@@ -166,7 +166,7 @@ def query():
     m= list(zip(l_genres,l_genres))
     form1 = QueryFormApplicationsStore()
     form1.genres.choices = m
-    chart = "/static/imgs/under_construction.png"
+    chart = "/static/images/graph_temp.png"
     if request.method == 'POST':
         genres = form1.genres.data
         type = form1.types.data 
