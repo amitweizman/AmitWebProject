@@ -27,6 +27,7 @@ import base64
 
 from os import path
 
+
 from flask   import Flask, render_template, flash, request
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from wtforms import TextField, TextAreaField, SubmitField, SelectField, DateField
@@ -35,6 +36,11 @@ from wtforms import ValidationError
 from AmitWebProject.Models.QueryFormStracture import QueryFormStructure 
 from AmitWebProject.Models.QueryFormStracture import LoginFormStructure
 from AmitWebProject.Models.QueryFormStracture import UserRegistrationFormStructure 
+from AmitWebProject.Models.QueryFormStracture import QueryFormApplicationsStore
+
+
+from flask_bootstrap import Bootstrap
+bootstrap = Bootstrap(app)
 
 ##from RoyWebProject2_alternative.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser
 
@@ -112,4 +118,119 @@ def dataSet():
         title='dataSet',
         year=datetime.now().year,
         message='My Data Set', data = df.to_html(classes = "table table-hover")
+    )
+
+import matplotlib.pyplot as plt
+from matplotlib.figure import Figure
+from AmitWebProject.Models.plot_service_functions import plot_to_img
+
+@app.route('/plot_demo' , methods = ['GET' , 'POST'])
+def plot_demo():
+    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/time_series_2019-ncov-Confirmed.csv'))
+    df = df.drop(['Lat' , 'Long' , 'Province/State'], 1)
+    df = df.rename(columns={'Country/Region': 'Country'})
+    df = df.groupby('Country').sum()
+    df = df.loc[['Israel' , 'France' , 'Italy' , 'Spain' , 'United Kingdom']]
+    df = df.transpose()
+    df = df.reset_index()
+    df = df.drop(['index'], 1)
+    df = df.tail(30)
+
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+    df.plot(ax = ax , kind = 'line')
+    chart = plot_to_img(fig)
+    
+    return render_template(
+        'plot_demo.html',
+        img_under_construction = '/static/imgs/under_construction.png',
+        chart = chart ,
+        height = "300" ,
+        width = "750"
+    )
+
+def remove_plus(str):
+    if '+' in str:
+        x=str.index('+')
+        return(str[:x])
+    else:
+        return(str)
+
+@app.route('/query' , methods = ['GET' , 'POST'])
+def query():
+    print("Query")
+    df_app =  pd.read_csv(path.join(path.dirname(__file__), 'static/data/dataset - apps on google play.csv'))
+    s_genres = df_app['Genres']
+    l_genres = list(s_genres)
+    l_genres = list(set(l_genres))
+    m= list(zip(l_genres,l_genres))
+    form1 = QueryFormApplicationsStore()
+    form1.genres.choices = m
+    chart = "/static/imgs/under_construction.png"
+    if request.method == 'POST':
+        genres = form1.genres.data
+        type = form1.types.data 
+        df_app=df_app[['App', 'Rating', 'Installs', 'Genres', 'Type']]
+        df_app =  df_app[df_app['Genres']==genres]
+        df_app = df_app[df_app['Type']==type]
+        df_app = df_app.drop('Genres',1)
+        df_app = df_app.drop('Type',1)
+        df_app['Rating']= df_app['Rating'].astype(float)
+        df_app['Installs']=df_app['Installs'].apply(lambda x:remove_plus(x))
+        df_app['Installs']=df_app['Installs'].apply(lambda x:x.replace(',',''))
+        df_app['Installs']= df_app['Installs'].astype(int)
+        df_app=df_app.sort_values('Installs',ascending=False)
+        df_app=df_app.iloc[0:5]
+        df_app=df_app.set_index('App')
+        df_app['Installs']=df_app['Installs']/1000000
+        fig = plt.figure()
+        fig, ax = plt.subplots()
+        df_app.plot('Rating', 'Installs', kind='scatter', ax=ax)
+        for k, v in df_app.iterrows():
+            ax.annotate(k, v)
+        chart = plot_to_img(fig)
+
+    return render_template(
+      'query.html', 
+      chart = chart,
+     form1 = form1)
+
+    #chart = {}
+    #height_case_1 = "100"
+    #width_case_1 = "250"
+
+    #df_trump = pd.read_csv(path.join(path.dirname(__file__), 'static/data/trump.csv'))
+    #df_obama = pd.read_csv(path.join(path.dirname(__file__), 'static/data/obama.csv'))
+    #df_bush = pd.read_csv(path.join(path.dirname(__file__), 'static/data/bush.csv'))
+    #df_clinton = pd.read_csv(path.join(path.dirname(__file__), 'static/data/clinton.csv'))
+    #presidents_dict = {'trump' : df_trump , 'obama' : df_obama , 'bush' : df_bush , 'clinton' : df_clinton }
+
+ 
+    #    start_date = form1.start_date.data
+    #    end_date = form1.end_date.data
+    #    kind = form1.kind.data
+    #    height_case_1 = "300"
+    #    width_case_1 = "750"
+
+    #    print(president)
+    #    print(start_date)
+    #    print(end_date)
+    #    print(type(start_date))
+    #    x = str(start_date)
+    #    print(x)
+    #    chart = plot_case_1(presidents_dict[president] , start_date , end_date , kind)
+
+    
+    return render_template(
+        'query.html',
+        #img_trump = '/static/imgs/trump.jpg',
+        #img_obama = '/static/imgs/obama.jpg',
+        #img_bush = '/static/imgs/bush.jpg',
+        #img_clinton = '/static/imgs/clinton.jpg',
+        #img_under_construction = '/static/imgs/under_construction.png',
+        #form1 = form1,
+        #src_case_1 = chart,
+        #height_case_1 = height_case_1 ,
+        #width_case_1 = width_case_1 ,
+        #code_ex_1 = '/static/imgs/code_ex_1.PNG'
     )

@@ -17,6 +17,7 @@
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
     <Name>AmitWebProject</Name>
     <RootNamespace>AmitWebProject</RootNamespace>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -27,6 +28,9 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AmitWebProject\Models\plot_service_functions.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="AmitWebProject\Models\QueryFormStracture.py">
       <SubType>Code</SubType>
     </Compile>
@@ -51,6 +55,7 @@
     <Content Include="AmitWebProject\static\data\dataset - apps on google play.csv" />
     <Content Include="AmitWebProject\static\data\users.csv" />
     <Content Include="AmitWebProject\templates\login.html" />
+    <Content Include="AmitWebProject\templates\query.html" />
     <Content Include="AmitWebProject\templates\register.html" />
     <Content Include="AmitWebProject\templates\data.html" />
     <Content Include="AmitWebProject\templates\dataSet.html" />
@@ -81,6 +86,17 @@
     <Content Include="AmitWebProject\templates\contact.html" />
     <Content Include="AmitWebProject\templates\index.html" />
     <Content Include="AmitWebProject\templates\layout.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Interpreter Include="env\">
+      <Id>env</Id>
+      <Version>3.7</Version>
+      <Description>env (Python 3.7 (64-bit))</Description>
+      <InterpreterPath>Scripts\python.exe</InterpreterPath>
+      <WindowsInterpreterPath>Scripts\pythonw.exe</WindowsInterpreterPath>
+      <PathEnvironmentVariable>PYTHONPATH</PathEnvironmentVariable>
+      <Architecture>X64</Architecture>
+    </Interpreter>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.Web.targets" />
   <!-- Specify pre- and post-build commands in the BeforeBuild and 

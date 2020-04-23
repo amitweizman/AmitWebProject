@@ -6,7 +6,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="/static/content/bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="/static/content/site.css" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <style>
+        .collapsible {
+            background-color: red;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+            .active, .collapsible:hover {
+                background-color: darkred;
+            }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: red;
+        }
+    </style>
 </head>
 <body style="max-width:2000px">
     <div class="navbar navbar-inverse navbar-fixed-top" style="background-color: darkred">
@@ -25,6 +50,8 @@
                     <li><a href="{{ url_for('Register') }}">Register</a></li>
                     <li><a href="{{ url_for('Login') }}">Log in</a></li>
                     <li><a href="{{ url_for('data') }}">Data</a></li>
+                    <li><a href="{{ url_for('query') }}">Query</a></li>
+
                 </ul>
             </div>
         </div>

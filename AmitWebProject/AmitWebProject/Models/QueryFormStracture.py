@@ -11,8 +11,17 @@ from wtforms import TextField, TextAreaField, SelectField, DateField
 from wtforms import validators, ValidationError
 
 from wtforms.validators import DataRequired
+
+
+
 ### ----------------------------------------------------------- ###
 
+
+
+
+class QueryFormApplicationsStore(FlaskForm):
+    genres = SelectField('Select:')
+    types = SelectField(choices=[('Free', 'Free'), ('Paid', 'Paid')])
 
 
 
