@@ -42,7 +42,6 @@ from AmitWebProject.Models.QueryFormStracture import QueryFormApplicationsStore
 from flask_bootstrap import Bootstrap
 bootstrap = Bootstrap(app)
 
-##from RoyWebProject2_alternative.Models.LocalDatabaseRoutines import IsUserExist, IsLoginGood, AddNewUser
 
 db_Functions = create_LocalDatabaseServiceRoutines() 
 
@@ -55,6 +54,8 @@ def home():
         title='Home Page',
         year=datetime.now().year,
     )
+
+
 
 
 @app.route('/register', methods=['GET', 'POST'])
