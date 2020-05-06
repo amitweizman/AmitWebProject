@@ -20,7 +20,7 @@ from wtforms.validators import DataRequired
 
 
 class QueryFormApplicationsStore(FlaskForm):
-    genres = SelectField('Select:')
+    genres = SelectField('Select genres of the apps:')
     types = SelectField(choices=[('Free', 'Free'), ('Paid', 'Paid')])
 
 

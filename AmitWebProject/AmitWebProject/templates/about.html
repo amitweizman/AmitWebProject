@@ -2,9 +2,53 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
-<h3>{{ message }}</h3>
+<div class="row">
+    <img class="contain" src={{ img_high }} alt='Missing'>
+</div>
+<div class="row">
 
-<p>Use this area to provide additional information.</p>
+</div>
+<div class="row">
+    <div class="col-md-8">
+        <h2>About the Project:</h2>
+        <p>
+            This is a Data Science project on behalf the 10th grade class of Alterman High Tel Aviv.
+            <br /><br />
+            This project includes 2 main areas of knowledge:
+            <br /><br />
+            <ul>
+                <li>Web Programming</li>
+                <li>Data Science</li>
+            </ul>
+            <br />
+            <h3>Data Science</h3>
+            <br /><br />
+            As part of the project, I located databases on the network and intend to build around them a website that allows access to the databases, data analysis and presentation to users in a convenient way.
+            The site will allow the user to explore the data in the chosen field and try to reach valuable insights and conclusions.            <br /><br />
+            The Tech Stack of the project is:            <br /><br />
+           <ul>
+               <li>Python Programming</li>
+               <li>Pandas Library</li>
+               <li>Flask Web Framework</li>
+             
+           </ul>
+        </p>
+    </div>
+</div>
+
+<div class="row my-grid-borders">
+    <table class="table table-striped">
+        <tbody>
+            <tr>
+                <td>Documentation Briefing for task 5310</td>
+                <td><a class="btn btn-primary" href="https://drive.google.com/file/d/1zCslSZGYYS_r7xwbo6tp7AgwDCiIQb_9/view?usp=sharing" target="_blank">Go &raquo;</a></td>
+            </tr>
+            <tr>
+                <td>My Github Repository:</td>
+                <td><a class="btn btn-primary" href="https://github.com/amitweizman/AmitWebProject" target="_blank">Go &raquo;</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 
 {% endblock %}

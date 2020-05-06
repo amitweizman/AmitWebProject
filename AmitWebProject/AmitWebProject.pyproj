@@ -55,6 +55,7 @@
   <ItemGroup>
     <Content Include="AmitWebProject\static\data\dataset - apps on google play.csv" />
     <Content Include="AmitWebProject\static\data\users.csv" />
+    <Content Include="AmitWebProject\static\images\tichonet.png" />
     <Content Include="AmitWebProject\templates\login.html" />
     <Content Include="AmitWebProject\templates\query.html" />
     <Content Include="AmitWebProject\templates\register.html" />

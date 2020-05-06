@@ -28,7 +28,7 @@ import base64
 from os import path
 
 
-from flask   import Flask, render_template, flash, request
+from flask   import Flask, render_template, flash, request,session
 from wtforms import Form, BooleanField, StringField, PasswordField, validators
 from wtforms import TextField, TextAreaField, SubmitField, SelectField, DateField
 from wtforms import ValidationError
@@ -45,6 +45,7 @@ bootstrap = Bootstrap(app)
 
 db_Functions = create_LocalDatabaseServiceRoutines() 
 
+#Home-Default page
 @app.route('/')
 @app.route('/home')
 def home():
@@ -57,7 +58,7 @@ def home():
 
 
 
-
+#Registration Page
 @app.route('/register', methods=['GET', 'POST'])
 def Register():
     form = UserRegistrationFormStructure(request.form)
@@ -82,14 +83,17 @@ def Register():
         )
 
 @app.route('/login', methods=['GET', 'POST'])
+#Login View 
 def Login():
     form = LoginFormStructure(request.form)
 
     if (request.method == 'POST' and form.validate()):
         if (db_Functions.IsLoginGood(form.username.data, form.password.data)):
+            session['logged_in'] = True
             flash('Login approved!')
             #return redirect('<were to go if login is good!')
         else:
+            session['logged_in'] = False
             flash('Error in - Username and/or password')
    
     return render_template(
@@ -100,9 +104,25 @@ def Login():
         repository_name='Pandas',
         )
 
+#This is the about view
+@app.route('/about')
+def about():
+    return render_template(
+        'about.html',
+        title='About the project',
+        img_high= '/static/images/tichonet.png'
+        )
+#Contact View
+@app.route('/contact')
+def contact():
+    return render_template(
+        'contact.html',
+        title='Contact the developer'
+        )
+
+#Data intro view
 @app.route('/data')
 def data():
-    """Renders the about page."""
     return render_template(
         'data.html',
         title='Data',
@@ -111,6 +131,7 @@ def data():
     )
 
 df = pd.read_csv("C:\\Users\\User\Source\\Repos\\AmitWebProject\\AmitWebProject\\AmitWebProject\\static\\Data\\dataset - apps on google play.csv")
+
 @app.route  ('/dataSet')
 def dataSet():
     """Renders the about page."""
@@ -125,40 +146,20 @@ import matplotlib.pyplot as plt
 from matplotlib.figure import Figure
 from AmitWebProject.Models.plot_service_functions import plot_to_img
 
-@app.route('/plot_demo' , methods = ['GET' , 'POST'])
-def plot_demo():
-    df = pd.read_csv(path.join(path.dirname(__file__), 'static/data/time_series_2019-ncov-Confirmed.csv'))
-    df = df.drop(['Lat' , 'Long' , 'Province/State'], 1)
-    df = df.rename(columns={'Country/Region': 'Country'})
-    df = df.groupby('Country').sum()
-    df = df.loc[['Israel' , 'France' , 'Italy' , 'Spain' , 'United Kingdom']]
-    df = df.transpose()
-    df = df.reset_index()
-    df = df.drop(['index'], 1)
-    df = df.tail(30)
 
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-    df.plot(ax = ax , kind = 'line')
-    chart = plot_to_img(fig)
-    
-    return render_template(
-        'plot_demo.html',
-        img_under_construction = '/static/imgs/under_construction.png',
-        chart = chart ,
-        height = "300" ,
-        width = "750"
-    )
-
+#Remove the plus sign from the results of the database
 def remove_plus(str):
     if '+' in str:
         x=str.index('+')
         return(str[:x])
     else:
         return(str)
-
+#Query Page -Graph page
 @app.route('/query' , methods = ['GET' , 'POST'])
 def query():
+    if (not 'logged_in' in session) or (session['logged_in'] == False):
+        return redirect('/login')
+
     print("Query")
     df_app =  pd.read_csv(path.join(path.dirname(__file__), 'static/data/dataset - apps on google play.csv'))
     s_genres = df_app['Genres']
@@ -195,43 +196,3 @@ def query():
       'query.html', 
       chart = chart,
      form1 = form1)
-
-    #chart = {}
-    #height_case_1 = "100"
-    #width_case_1 = "250"
-
-    #df_trump = pd.read_csv(path.join(path.dirname(__file__), 'static/data/trump.csv'))
-    #df_obama = pd.read_csv(path.join(path.dirname(__file__), 'static/data/obama.csv'))
-    #df_bush = pd.read_csv(path.join(path.dirname(__file__), 'static/data/bush.csv'))
-    #df_clinton = pd.read_csv(path.join(path.dirname(__file__), 'static/data/clinton.csv'))
-    #presidents_dict = {'trump' : df_trump , 'obama' : df_obama , 'bush' : df_bush , 'clinton' : df_clinton }
-
- 
-    #    start_date = form1.start_date.data
-    #    end_date = form1.end_date.data
-    #    kind = form1.kind.data
-    #    height_case_1 = "300"
-    #    width_case_1 = "750"
-
-    #    print(president)
-    #    print(start_date)
-    #    print(end_date)
-    #    print(type(start_date)) 
-    #    x = str(start_date)
-    #    print(x)
-    #    chart = plot_case_1(presidents_dict[president] , start_date , end_date , kind)
-
-    
-    return render_template(
-        'query.html',
-        #img_trump = '/static/imgs/trump.jpg',
-        #img_obama = '/static/imgs/obama.jpg',
-        #img_bush = '/static/imgs/bush.jpg',
-        #img_clinton = '/static/imgs/clinton.jpg',
-        #img_under_construction = '/static/imgs/under_construction.png',
-        #form1 = form1,
-        #src_case_1 = chart,
-        #height_case_1 = height_case_1 ,
-        #width_case_1 = width_case_1 ,
-        #code_ex_1 = '/static/imgs/code_ex_1.PNG'
-    )
