@@ -167,7 +167,7 @@ def query():
     l_genres = list(set(l_genres)) ## מוריד את הכפילויות ומחזיר לרשימה
     m= list(zip(l_genres,l_genres))##הופך לזוגות כדי שיהיה אפשר להכניס לטופס    
     form1 = QueryFormApplicationsStore() ## משתמש בפורם שיש בקווארי
-    form1.genres.choices = m ## מכניס לטופס את האפשרויות בחירה שהיו במשתמש m
+    form1.genres.choices = m ## מכניס לטופס את האפשרויות בחירה שהיו במשתנה m
     chart = "/static/images/graph_temp.png"## מעלה תמונה
     if request.method == 'POST':
         genres = form1.genres.data## נותן למשתנה geners את כל הזאנרים שיש כדי שמשתמש יוכל לבחור בטופס
@@ -185,7 +185,7 @@ def query():
         df_app=df_app.iloc[0:5] ## מגביל לחמש שורות
         df_app=df_app.set_index('App') ## משנה את האינדקס לאפליקציה
         df_app['Installs']=df_app['Installs']/1000000## מחלק את הערכים של ההורדות במיליון כדי להציג אותם בצורה יפה
-        fig = plt.figure()## עושים את הגרף עם אנוטציה
+        fig = plt.figure()## עושים את הגרף 
         fig, ax = plt.subplots()
         df_app.plot('Rating', 'Installs', kind='scatter', ax=ax)
         for k, v in df_app.iterrows():
@@ -196,3 +196,14 @@ def query():
       'query.html', 
       chart = chart,
      form1 = form1)
+
+
+## import pandas as pd -לייבא את הספרייה
+## df = pd.read_csv('cars.csv')- כיצד לייבא קובץ csv?
+## df.price = df.price.astype('int')- כיצד להמיר את סוג הנתונים בעמודות?
+## df = df.set_index('date') -  כיצד לקבוע את עמודת האינדקס?
+## df.head()- כיצד לסקור את המידע ב-Data Frame
+## df = df.iloc[0:5] - להגביל את מספר השורות
+## df.sort_values('price', ascending=False) - הפקודה sort_values משמשת לסידור סט הנתונים לפי עמודה (בסדר יורד או עולה):
+## df1 = df[['model', 'price']] - איך לקחת רק חלק מהעמודות
+## 
