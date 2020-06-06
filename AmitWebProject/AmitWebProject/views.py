@@ -161,31 +161,31 @@ def query():
         return redirect('/login')
 
     print("Query")
-    df_app =  pd.read_csv(path.join(path.dirname(__file__), 'static/data/dataset - apps on google play.csv'))
-    s_genres = df_app['Genres']
-    l_genres = list(s_genres)
-    l_genres = list(set(l_genres))
-    m= list(zip(l_genres,l_genres))
-    form1 = QueryFormApplicationsStore()
-    form1.genres.choices = m
-    chart = "/static/images/graph_temp.png"
+    df_app =  pd.read_csv(path.join(path.dirname(__file__), 'static/data/dataset - apps on google play.csv'))## לוקח את הדאטה סט ומעלה אותו לדאטהפריים
+    s_genres = df_app['Genres']## נותן למשתנה את הערכים של העמודה ז'אנר
+    l_genres = list(s_genres) ## מעביר את הערכים לרשימה של פייתון
+    l_genres = list(set(l_genres)) ## מוריד את הכפילויות ומחזיר לרשימה
+    m= list(zip(l_genres,l_genres))##הופך לזוגות כדי שיהיה אפשר להכניס לטופס    
+    form1 = QueryFormApplicationsStore() ## משתמש בפורם שיש בקווארי
+    form1.genres.choices = m ## מכניס לטופס את האפשרויות בחירה שהיו במשתמש m
+    chart = "/static/images/graph_temp.png"## מעלה תמונה
     if request.method == 'POST':
-        genres = form1.genres.data
-        type = form1.types.data 
-        df_app=df_app[['App', 'Rating', 'Installs', 'Genres', 'Type']]
-        df_app =  df_app[df_app['Genres']==genres]
-        df_app = df_app[df_app['Type']==type]
-        df_app = df_app.drop('Genres',1)
-        df_app = df_app.drop('Type',1)
-        df_app['Rating']= df_app['Rating'].astype(float)
-        df_app['Installs']=df_app['Installs'].apply(lambda x:remove_plus(x))
-        df_app['Installs']=df_app['Installs'].apply(lambda x:x.replace(',',''))
-        df_app['Installs']= df_app['Installs'].astype(int)
-        df_app=df_app.sort_values('Installs',ascending=False)
-        df_app=df_app.iloc[0:5]
-        df_app=df_app.set_index('App')
-        df_app['Installs']=df_app['Installs']/1000000
-        fig = plt.figure()
+        genres = form1.genres.data## נותן למשתנה geners את כל הזאנרים שיש כדי שמשתמש יוכל לבחור בטופס
+        type = form1.types.data ## נותן למשתנה type את הערכים של הסוגים כדי שהמשתמש יוכל לבחור
+        df_app=df_app[['App', 'Rating', 'Installs', 'Genres', 'Type']] ## לוקח רק את העמודות שצריכים מהדאטה בייס
+        df_app =  df_app[df_app['Genres']==genres] ## בוחר רק את השורות בעמודה של הזאנר שבהבם יש את הערכים במשתנה geners
+        df_app = df_app[df_app['Type']==type] ## בוחר רק את השורות בעמודה של הסוג שבהם יש את הערך במשתנה type
+        df_app = df_app.drop('Genres',1) ## מוריד את העמודות זאנר וסוג כי אני יודע שכולם אותו ערך לפי הבחירה
+        df_app = df_app.drop('Type',1) ## מוריד את העמודות זאנר וסוג כי אני יודע שכולם אותו ערך לפי הבחירה
+        df_app['Rating']= df_app['Rating'].astype(float) ## משנה את הערכים בעמודה של דירוג לFLOAT
+        df_app['Installs']=df_app['Installs'].apply(lambda x:remove_plus(x))## מוריד את ה+ בערכים שבעמודה הורדות כדי שנוכל להציג אותם בגרף 
+        df_app['Installs']=df_app['Installs'].apply(lambda x:x.replace(',',''))## מוריד את הפסיקים
+        df_app['Installs']= df_app['Installs'].astype(int) ## לאחר שהורדנו את הפלוס ואת הפסיק מעביר חזרה לint
+        df_app=df_app.sort_values('Installs',ascending=False) ## משנה את הסדר בעמודה הורדות מהגבוה לנמוך
+        df_app=df_app.iloc[0:5] ## מגביל לחמש שורות
+        df_app=df_app.set_index('App') ## משנה את האינדקס לאפליקציה
+        df_app['Installs']=df_app['Installs']/1000000## מחלק את הערכים של ההורדות במיליון כדי להציג אותם בצורה יפה
+        fig = plt.figure()## עושים את הגרף עם אנוטציה
         fig, ax = plt.subplots()
         df_app.plot('Rating', 'Installs', kind='scatter', ax=ax)
         for k, v in df_app.iterrows():
